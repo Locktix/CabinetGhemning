@@ -1,3 +1,5 @@
+console.log('JS chargé !');
+
 document.addEventListener('DOMContentLoaded', function () {
   // Chatbot
   const chatForm = document.getElementById('chat-form');
@@ -24,6 +26,22 @@ document.addEventListener('DOMContentLoaded', function () {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
+  function showLoading() {
+    const chatMessages = document.getElementById('chat-messages');
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'chatbot-loading';
+    loadingDiv.innerHTML = '<span class="chatbot-loading-dot"></span><span class="chatbot-loading-dot"></span><span class="chatbot-loading-dot"></span>';
+    chatMessages.appendChild(loadingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return loadingDiv;
+  }
+
+  function removeLoading(loadingDiv) {
+    if (loadingDiv && loadingDiv.parentNode) {
+      loadingDiv.parentNode.removeChild(loadingDiv);
+    }
+  }
+
   // Afficher le message d'accueil uniquement à l'ouverture
   function showWelcomeMessage() {
     const chatMessages = document.getElementById('chat-messages');
@@ -45,23 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
     chatbotBubble.style.display = 'none';
     chatbotOverlay.style.display = 'none';
     chatbotFab.style.display = 'flex';
+    hideEmojiPicker();
   }
 
-  chatbotFab.addEventListener('click', openChatbot);
-  chatbotClose.addEventListener('click', closeChatbot);
-  chatbotOverlay.addEventListener('click', closeChatbot);
+  if (chatbotFab) chatbotFab.addEventListener('click', openChatbot);
+  if (chatbotClose) chatbotClose.addEventListener('click', closeChatbot);
+  if (chatbotOverlay) chatbotOverlay.addEventListener('click', closeChatbot);
 
   // Formulaire
-  chatForm.addEventListener('submit', function(e) {
+  if (chatForm) chatForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const userMsg = chatInput.value.trim();
     if (!userMsg) return;
     addMessage(userMsg, 'user');
     chatInput.value = '';
     if (firstUserMessage) {
+      const loadingDiv = showLoading();
       setTimeout(() => {
+        removeLoading(loadingDiv);
         addMessage("Merci pour votre message ! Nous vous répondrons très bientôt.", 'bot');
-      }, 700);
+      }, 1000);
       firstUserMessage = false;
     }
   });
@@ -94,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const faqPageIndicator = document.getElementById('faq-page-indicator');
 
   function renderFaqPage(page) {
+    if (!faqList || !faqPrev || !faqNext || !faqPageIndicator) return;
     faqList.innerHTML = '';
     const start = (page - 1) * QUESTIONS_PER_PAGE;
     const end = start + QUESTIONS_PER_PAGE;
@@ -113,18 +135,106 @@ document.addEventListener('DOMContentLoaded', function () {
     faqPageIndicator.textContent = `Page ${page}`;
   }
 
-  faqPrev.addEventListener('click', function () {
-    if (currentFaqPage > 1) {
-      currentFaqPage--;
-      renderFaqPage(currentFaqPage);
+  if (faqPrev && faqNext && faqList && faqPageIndicator) {
+    faqPrev.addEventListener('click', function () {
+      if (currentFaqPage > 1) {
+        currentFaqPage--;
+        renderFaqPage(currentFaqPage);
+      }
+    });
+    faqNext.addEventListener('click', function () {
+      if ((currentFaqPage * QUESTIONS_PER_PAGE) < faqQuestions.length) {
+        currentFaqPage++;
+        renderFaqPage(currentFaqPage);
+      }
+    });
+    renderFaqPage(currentFaqPage);
+  }
+
+  // Emoji Picker
+  const emojiBtn = document.getElementById('emoji-btn');
+  const emojiPicker = document.getElementById('emoji-picker');
+  const emojis = [
+    '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','😘','🥰','😗','😙','😚','🙂','🤗','🤩','🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮','🤐','😯','😪','😫','🥱','😴','😌','😛','😜','😝','🤤','😒','😓','😔','😕','🙃','🤑','😲','☹️','🙁','😖','😞','😟','😤','😢','😭','😦','😧','😨','😩','🤯','😬','😰','😱','🥵','🥶','😳','🤪','😵','😡','😠','🤬','😷','🤒','🤕','🤢','🤮','🥴','😇','🥳','🥺','🤠','🤡','🤥','🤫','🤭','🧐','🤓','😈','👿','👹','👺','💀','👻','👽','🤖','💩','😺','😸','😹','😻','😼','😽','��','😿','😾'
+  ];
+
+  if (!emojiBtn) console.warn('emoji-btn introuvable');
+  if (!emojiPicker) console.warn('emoji-picker introuvable');
+
+  function showEmojiPicker() {
+    if (!emojiPicker) return;
+    emojiPicker.innerHTML = '';
+    emojis.forEach(emoji => {
+      const span = document.createElement('span');
+      span.textContent = emoji;
+      span.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        console.log('Emoji cliqué:', emoji);
+        if (chatInput) chatInput.value += emoji; // test simple
+        hideEmojiPicker();
+        if (chatInput) chatInput.focus();
+      });
+      emojiPicker.appendChild(span);
+    });
+    emojiPicker.style.display = 'grid';
+    if (emojiBtn) emojiBtn.classList.add('active');
+  }
+  function hideEmojiPicker() {
+    if (!emojiPicker) return;
+    emojiPicker.style.display = 'none';
+    if (emojiBtn) emojiBtn.classList.remove('active');
+  }
+  if (emojiBtn) emojiBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('Bouton emoji cliqué');
+    if (emojiPicker.style.display === 'grid') {
+      hideEmojiPicker();
+    } else {
+      showEmojiPicker();
     }
   });
-  faqNext.addEventListener('click', function () {
-    if ((currentFaqPage * QUESTIONS_PER_PAGE) < faqQuestions.length) {
-      currentFaqPage++;
-      renderFaqPage(currentFaqPage);
+  document.addEventListener('mousedown', (e) => {
+    if (emojiPicker && !emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+      hideEmojiPicker();
     }
   });
 
-  renderFaqPage(currentFaqPage);
+  // Image upload
+  const imageBtn = document.getElementById('image-btn');
+  const imageInput = document.getElementById('image-input');
+
+  if (!imageBtn) console.warn('image-btn introuvable');
+  if (!imageInput) console.warn('image-input introuvable');
+
+  if (imageBtn) imageBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('Bouton image cliqué');
+    imageInput && imageInput.click();
+  });
+
+  if (imageInput) imageInput.addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      const file = this.files[0];
+      console.log('Image sélectionnée:', file.name);
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        addImageMessage(e.target.result, 'user');
+      };
+      reader.readAsDataURL(file);
+      imageInput.value = '';
+    }
+  });
+
+  function addImageMessage(imgSrc, sender = 'user') {
+    const chatMessages = document.getElementById('chat-messages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chatbot-message ' + (sender === 'user' ? 'user' : 'bot');
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = 'Image envoyée';
+    img.className = 'chatbot-img-preview';
+    msgDiv.appendChild(img);
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
 }); 
