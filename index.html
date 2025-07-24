@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cabinet médical du Dr Ghemning – Angleur</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header class="glass header-main gradient-header">
+    <div class="header-content header-flex">
+      <div class="logo-medical">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" stroke="#4a90e2" stroke-width="3" fill="#fff"/>
+          <rect x="21" y="10" width="6" height="28" rx="3" fill="#4a90e2"/>
+          <rect x="10" y="21" width="28" height="6" rx="3" fill="#4a90e2"/>
+        </svg>
+      </div>
+      <div class="header-title-block">
+        <h1>Cabinet médical du Dr Ghemning</h1>
+        <p class="subtitle">Médecine générale – Angleur (Liège, Belgique)</p>
+      </div>
+      <div class="header-btn-block">
+        <a class="btn-progenda btn-header" href="https://progenda.be/" target="_blank"><i class="fa-solid fa-calendar-check"></i> Prendre rendez-vous</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="glass card-section gradient-section">
+      <h2><i class="fa-solid fa-user-doctor"></i> Présentation</h2>
+      <p>Le Cabinet médical du Dr Honoré Blaise Ghemning Tassimo vous accueille à Angleur pour des consultations de médecine générale, dans un cadre moderne, professionnel et à l’écoute de chaque patient.</p>
+    </section>
+    <section class="glass card-section gradient-section">
+      <h2><i class="fa-solid fa-clock"></i> Horaires de consultation</h2>
+      <table class="horaires-table">
+        <tr><th>Jour</th><th>Matin</th><th>Après-midi</th></tr>
+        <tr><td><i class="fa-solid fa-calendar-day"></i> Lundi</td><td>08h30 – 12h30</td><td>13h30 – 17h00</td></tr>
+        <tr><td><i class="fa-solid fa-calendar-day"></i> Mardi</td><td>08h30 – 12h30</td><td>13h30 – 17h00</td></tr>
+        <tr><td><i class="fa-solid fa-calendar-day"></i> Mercredi</td><td>08h30 – 12h30</td><td>13h30 – 17h00</td></tr>
+        <tr><td><i class="fa-solid fa-calendar-day"></i> Jeudi</td><td>08h30 – 13h00</td><td>-</td></tr>
+        <tr><td><i class="fa-solid fa-calendar-day"></i> Vendredi</td><td>08h30 – 12h30</td><td>13h30 – 17h00</td></tr>
+      </table>
+      <p class="teleconsultation"><i class="fa-solid fa-laptop-medical"></i> Téléconsultation disponible via Progenda.<br>Consultations remboursées comme en présentiel.</p>
+    </section>
+    <section class="glass card-section gradient-section">
+      <h2><i class="fa-solid fa-circle-question"></i> FAQ</h2>
+      <div class="faq-list">
+        <details>
+          <summary><i class="fa-solid fa-calendar-check"></i> Comment prendre rendez-vous ?</summary>
+          <p>En ligne via <a href="https://progenda.be/">Progenda</a> ou par téléphone au 04 384 30 84.</p>
+        </details>
+        <details>
+          <summary><i class="fa-solid fa-euro-sign"></i> Les consultations sont-elles remboursées ?</summary>
+          <p>Oui, le cabinet est conventionné (secteur 1), les consultations sont remboursées par la mutuelle.</p>
+        </details>
+        <details>
+          <summary><i class="fa-solid fa-laptop-medical"></i> Proposez-vous la téléconsultation ?</summary>
+          <p>Oui, la téléconsultation est disponible via Progenda et remboursée comme une consultation en présentiel.</p>
+        </details>
+        <details>
+          <summary><i class="fa-solid fa-language"></i> Quelles langues sont parlées au cabinet ?</summary>
+          <p>Français, Anglais.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="footer-main gradient-footer">
+    <div class="footer-flex footer-flex-center">
+      <div class="footer-info footer-info-left">
+        <div class="footer-info-block">
+          <i class="fa-solid fa-location-dot"></i> Rue Auguste Joiret 2, 4031 Angleur (Liège)
+        </div>
+        <div class="footer-info-block">
+          <i class="fa-solid fa-phone"></i> <a href="tel:043843084">04 384 30 84</a>
+        </div>
+      </div>
+      <div class="footer-logo-slogan footer-logo-center">
+        <div class="footer-logo-medical">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="#4a90e2" stroke-width="3" fill="#fff"/>
+            <rect x="21" y="10" width="6" height="28" rx="3" fill="#4a90e2"/>
+            <rect x="10" y="21" width="28" height="6" rx="3" fill="#4a90e2"/>
+          </svg>
+        </div>
+        <div class="footer-slogan">Votre santé, notre priorité</div>
+      </div>
+      <div class="footer-info footer-info-right">
+        <div class="footer-info-block">
+          <i class="fa-solid fa-id-badge"></i> INAMI : 1-6706269-004
+        </div>
+        <div class="footer-info-block">
+          <i class="fa-solid fa-language"></i> Français, Anglais
+        </div>
+      </div>
+    </div>
+    <p class="footer-copyright">&copy; 2024 Cabinet médical du Dr Ghemning – Angleur (Liège, Belgique)</p>
+  </footer>
+  <div id="chatbot-overlay"></div>
+  <div id="chatbot-fab">💬</div>
+  <div id="chatbot-bubble" class="glass gradient-chatbot">
+    <div id="chatbot-header">
+      <span>💬 Chat en ligne</span>
+      <button id="chatbot-close">×</button>
+    </div>
+    <div id="chatbot">
+      <div id="chat-messages">
+        <div class="chatbot-message chatbot-welcome">
+          <i class="fa-solid fa-user-doctor"></i> Bonjour et bienvenue sur le Chat du Cabinet médical du Dr Ghemning !<br>
+          Posez votre question, nous vous répondrons dans les plus brefs délais.
+        </div>
+      </div>
+      <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Écrivez votre message..." autocomplete="off" required />
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+    <p class="chatbot-info">Discutez avec le médecin ou la secrétaire (réponse automatique de démonstration).</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> 
