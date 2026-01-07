@@ -35,7 +35,6 @@ CabinetGhemning/
 │   ├── doctor-placeholder.jpg    # Photo médecin
 │   ├── nurse-placeholder.jpg     # Photo infirmière
 │   ├── assistant-placeholder.jpg # Photo assistant
-│   └── placeholder-info.txt      # Instructions pour les images
 └── README.md              # Ce fichier
 ```
 

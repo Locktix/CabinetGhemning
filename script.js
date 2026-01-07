@@ -24,64 +24,68 @@ if (contactForm) {
         const formData = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
+            phone: document.getElementById('phone').value || 'Non fourni',
             subject: document.getElementById('subject').value,
             message: document.getElementById('message').value
         };
         
-        // Simuler l'envoi (remplacer par votre logique d'envoi réelle)
+        // Mapper les sujets en français
+        const sujets_map = {
+            'rendez-vous': 'Demande de rendez-vous',
+            'information': 'Demande d\'information',
+            'urgence': 'URGENCE',
+            'autre': 'Autre demande'
+        };
+        
+        const sujet_texte = sujets_map[formData.subject] || formData.subject;
+        
+        // Construire le corps de l'email
+        const emailBody = `
+Bonjour,
+
+Nouveau message depuis le site web :
+
+-----------------------------------
+NOM COMPLET : ${formData.name}
+EMAIL : ${formData.email}
+TÉLÉPHONE : ${formData.phone}
+SUJET : ${sujet_texte}
+-----------------------------------
+
+MESSAGE :
+${formData.message}
+
+-----------------------------------
+Envoyé depuis le formulaire de contact
+Cabinet Médical Dr. Ghemning
+${new Date().toLocaleString('fr-BE')}
+        `.trim();
+        
+        // Créer le lien mailto
+        const mailtoLink = `mailto:Ghemning@gmail.com?subject=${encodeURIComponent('Nouveau message: ' + sujet_texte)}&body=${encodeURIComponent(emailBody)}`;
+        
+        // Ouvrir le client email
+        window.location.href = mailtoLink;
+        
+        // Simuler un petit délai puis afficher le succès
         setTimeout(() => {
-            // Succès (à remplacer par votre logique backend)
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
             submitBtn.disabled = false;
             
             // Afficher le message de succès
+            successMsg.textContent = '✅ Votre client email va s\'ouvrir. Cliquez sur "Envoyer" pour finaliser.';
             successMsg.style.display = 'block';
             errorMsg.style.display = 'none';
             
             // Réinitialiser le formulaire
             contactForm.reset();
             
-            // Cacher le message après 5 secondes
+            // Cacher le message après 8 secondes
             setTimeout(() => {
                 successMsg.style.display = 'none';
-            }, 5000);
-            
-            // Log des données (pour développement)
-            console.log('Formulaire soumis:', formData);
-            
-            // TODO: Remplacer par votre logique d'envoi
-            // Exemple avec fetch:
-            /*
-            fetch('votre-endpoint.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    successMsg.style.display = 'block';
-                    errorMsg.style.display = 'none';
-                    contactForm.reset();
-                } else {
-                    errorMsg.style.display = 'block';
-                    successMsg.style.display = 'none';
-                }
-            })
-            .catch(error => {
-                errorMsg.style.display = 'block';
-                successMsg.style.display = 'none';
-            })
-            .finally(() => {
-                btnText.style.display = 'inline';
-                btnLoading.style.display = 'none';
-                submitBtn.disabled = false;
-            });
-            */
-            
-        }, 1500);
+            }, 8000);
+        }, 500);
     });
 }
 
