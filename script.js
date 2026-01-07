@@ -1,4 +1,151 @@
 /* ===================================
+   BADGE DE DISPONIBILITÉ EN TEMPS RÉEL
+   =================================== */
+
+function updateStatusBadge() {
+    const statusBadge = document.getElementById('statusBadge');
+    if (!statusBadge) return;
+    
+    const now = new Date();
+    const day = now.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const timeInMinutes = hour * 60 + minute;
+    
+    let isOpen = false;
+    let nextOpening = '';
+    
+    // Configuration des horaires (en minutes depuis minuit)
+    const schedule = {
+        1: { morning: [510, 750], afternoon: [810, 1020] }, // Lundi: 08:30-12:30, 13:30-17:00
+        2: { morning: [510, 750], afternoon: [810, 1020] }, // Mardi
+        3: { morning: [510, 750], afternoon: [810, 1020] }, // Mercredi
+        4: { morning: [510, 750], afternoon: null },         // Jeudi: 08:30-12:30 (fermé après-midi)
+        5: { morning: [510, 750], afternoon: [810, 1020] }, // Vendredi
+        6: { morning: [540, 780], afternoon: null },         // Samedi: 09:00-13:00
+        0: { morning: null, afternoon: null }                // Dimanche: fermé
+    };
+    
+    const todaySchedule = schedule[day];
+    
+    // Vérifier si ouvert maintenant
+    if (todaySchedule.morning && timeInMinutes >= todaySchedule.morning[0] && timeInMinutes <= todaySchedule.morning[1]) {
+        isOpen = true;
+    } else if (todaySchedule.afternoon && timeInMinutes >= todaySchedule.afternoon[0] && timeInMinutes <= todaySchedule.afternoon[1]) {
+        isOpen = true;
+    }
+    
+    // Mettre à jour le badge
+    const statusDot = statusBadge.querySelector('.status-dot');
+    const statusText = statusBadge.querySelector('.status-text');
+    
+    if (isOpen) {
+        statusBadge.classList.add('open');
+        statusBadge.classList.remove('closed');
+        statusText.textContent = '🟢 Ouvert maintenant';
+    } else {
+        statusBadge.classList.add('closed');
+        statusBadge.classList.remove('open');
+        statusText.textContent = '🔴 Fermé actuellement';
+    }
+}
+
+// Mettre à jour toutes les minutes
+updateStatusBadge();
+setInterval(updateStatusBadge, 60000);
+
+/* ===================================
+   BOUTON RETOUR EN HAUT
+   =================================== */
+
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+/* ===================================
+   BANNIÈRE COOKIES RGPD (BELGIQUE)
+   =================================== */
+
+function checkCookieConsent() {
+    const consent = localStorage.getItem('cookieConsent');
+    const cookieBanner = document.getElementById('cookieBanner');
+    
+    if (!consent) {
+        cookieBanner.classList.add('show');
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieBanner').classList.remove('show');
+    
+    // Ici vous pouvez activer Google Analytics ou autres cookies
+    console.log('Cookies acceptés - Activation des analytics...');
+    // Example: gtag('config', 'GA_MEASUREMENT_ID');
+}
+
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookieBanner').classList.remove('show');
+    console.log('Cookies refusés - Mode minimal');
+}
+
+// Vérifier au chargement
+checkCookieConsent();
+
+/* ===================================
+   ALERTE CONGÉS/FERMETURES
+   =================================== */
+
+function closeAlert() {
+    const alertBanner = document.getElementById('alertBanner');
+    alertBanner.style.display = 'none';
+    sessionStorage.setItem('alertClosed', 'true');
+}
+
+// Afficher l'alerte si elle n'a pas été fermée dans cette session
+// ET si vous voulez l'activer (décommentez la ligne suivante)
+ if (!sessionStorage.getItem('alertClosed')) {
+     document.getElementById('alertBanner').style.display = 'block';
+ }
+
+/* ===================================
+   ANIMATIONS AU SCROLL AMÉLIORÉES
+   =================================== */
+
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+// Observer tous les éléments à animer
+document.querySelectorAll('.presentation-card, .equipe-card, .testimonial-card, .horaires-wrapper, .faq-container').forEach((el) => {
+    el.classList.add('scroll-animate');
+    scrollObserver.observe(el);
+});
+
+/* ===================================
    GESTION DU FORMULAIRE DE CONTACT
    =================================== */
 
@@ -130,34 +277,6 @@ navLinks.forEach((link) => {
         // Le lien utilise déjà href avec # donc scroll-behavior: smooth le gère
         // Mais on peut ajouter une logique supplémentaire si nécessaire
     });
-});
-
-/* ===================================
-   EFFETS AU SCROLL
-   =================================== */
-
-// Observer pour les animations au scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observer les cartes de présentation
-const presentationCards = document.querySelectorAll('.presentation-card');
-presentationCards.forEach((card) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
 });
 
 /* ===================================
