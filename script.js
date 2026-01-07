@@ -1,240 +1,249 @@
-console.log('JS chargé !');
+/* ===================================
+   GESTION DE LA FAQ
+   =================================== */
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Chatbot
-  const chatForm = document.getElementById('chat-form');
-  const chatInput = document.getElementById('chat-input');
-  const chatMessages = document.getElementById('chat-messages');
-  const chatbotBubble = document.getElementById('chatbot-bubble');
-  const chatbotFab = document.getElementById('chatbot-fab');
-  const chatbotClose = document.getElementById('chatbot-close');
-  const chatbotOverlay = document.getElementById('chatbot-overlay');
+// Récupérer tous les éléments de la FAQ
+const faqItems = document.querySelectorAll('.faq-item');
+const faqQuestions = document.querySelectorAll('.faq-question');
 
-  let firstUserMessage = true;
+// Ajouter un écouteur d'événement à chaque question
+faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+        // Récupérer l'élément parent (faq-item)
+        const faqItem = question.parentElement;
+        
+        // Vérifier si l'élément est déjà actif
+        const isActive = faqItem.classList.contains('active');
+        
+        // Fermer tous les autres éléments
+        faqItems.forEach((item) => {
+            item.classList.remove('active');
+        });
+        
+        // Ouvrir le nouvel élément s'il n'était pas actif
+        if (!isActive) {
+            faqItem.classList.add('active');
+        }
+    });
+});
 
-  function addMessage(text, sender = 'bot') {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'chatbot-message ' + (sender === 'user' ? 'user' : 'bot');
-    if (sender === 'bot' && firstUserMessage) {
-      msgDiv.innerHTML = '<i class="fa-solid fa-user-doctor"></i> ' + text;
-    } else if (sender === 'bot') {
-      msgDiv.innerHTML = '<i class="fa-solid fa-robot"></i> ' + text;
+/* ===================================
+   NAVIGATION SMOOTH
+   =================================== */
+
+// Récupérer tous les liens de navigation
+const navLinks = document.querySelectorAll('.nav-link');
+
+navLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+        // Le lien utilise déjà href avec # donc scroll-behavior: smooth le gère
+        // Mais on peut ajouter une logique supplémentaire si nécessaire
+    });
+});
+
+/* ===================================
+   EFFETS AU SCROLL
+   =================================== */
+
+// Observer pour les animations au scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observer les cartes de présentation
+const presentationCards = document.querySelectorAll('.presentation-card');
+presentationCards.forEach((card) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+});
+
+/* ===================================
+   GESTION DE LA NAVBAR STICKY
+   =================================== */
+
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
     } else {
-      msgDiv.textContent = text;
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
     }
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+});
 
-  function showLoading() {
-    const chatMessages = document.getElementById('chat-messages');
-    const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'chatbot-loading';
-    loadingDiv.innerHTML = '<span class="chatbot-loading-dot"></span><span class="chatbot-loading-dot"></span><span class="chatbot-loading-dot"></span>';
-    chatMessages.appendChild(loadingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    return loadingDiv;
-  }
+/* ===================================
+   CONFIGURATION MODIFIABLE
+   =================================== */
 
-  function removeLoading(loadingDiv) {
-    if (loadingDiv && loadingDiv.parentNode) {
-      loadingDiv.parentNode.removeChild(loadingDiv);
+// Configuration des horaires
+const horaireConfig = {
+    lundi: { matin: '08:30 - 12:30', apremidi: '13:30 - 17:00' },
+    mardi: { matin: '08:30 - 12:30', apremidi: '13:30 - 17:00' },
+    mercredi: { matin: '08:30 - 12:30', apremidi: '13:30 - 17:00' },
+    jeudi: { matin: '08:30 - 12:30', apremidi: 'Fermé' },
+    vendredi: { matin: '08:30 - 12:30', apremidi: '13:30 - 17:00' },
+    samedi: { matin: '09:00 - 13:00', apremidi: 'Fermé' },
+    dimanche: { matin: 'Fermé', apremidi: 'Fermé' }
+};
+
+// Configuration des informations de contact
+const contactConfig = {
+    adresse: '[Votre adresse]',
+    telephone: '[Votre numéro]',
+    email: '[Votre email]'
+};
+
+// Configuration des informations générales
+const generalConfig = {
+    nom: 'Cabinet Dr. Ghemning',
+    urlProgenda: 'https://DrGhemning.progenda.be',
+    description: 'Votre santé est notre priorité'
+};
+
+/* ===================================
+   FONCTION UTILITAIRE DE MISE À JOUR
+   =================================== */
+
+/**
+ * Fonction pour mettre à jour les informations de contact
+ * Exemple d'utilisation: updateContact('adresse', '123 rue de la Santé, 75000 Paris')
+ */
+function updateContact(type, value) {
+    contactConfig[type] = value;
+    
+    // Mettre à jour le DOM
+    const contactItems = document.querySelectorAll('.info-item div:last-child p');
+    const index = Object.keys(contactConfig).indexOf(type);
+    
+    if (contactItems[index]) {
+        contactItems[index].textContent = value;
     }
-  }
+    
+    console.log(`Contact ${type} mis à jour: ${value}`);
+}
 
-  // Afficher le message d'accueil uniquement à l'ouverture
-  function showWelcomeMessage() {
-    const chatMessages = document.getElementById('chat-messages');
-    chatMessages.innerHTML = '';
-    const welcomeDiv = document.createElement('div');
-    welcomeDiv.className = 'chatbot-message chatbot-welcome';
-    welcomeDiv.innerHTML = '<i class="fa-solid fa-user-doctor"></i> Bonjour et bienvenue sur le Chat du Cabinet médical du Dr Ghemning !<br>Posez votre question, nous vous répondrons dans les plus brefs délais.';
-    chatMessages.appendChild(welcomeDiv);
-  }
+/**
+ * Fonction pour mettre à jour les horaires
+ * Exemple d'utilisation: updateHoraire('lundi', { matin: '08:00 - 12:00', apremidi: '14:00 - 18:00' })
+ */
+function updateHoraire(jour, config) {
+    horaireConfig[jour] = config;
+    console.log(`Horaires ${jour} mis à jour`, config);
+}
 
-  function openChatbot() {
-    chatbotBubble.style.display = 'flex';
-    chatbotOverlay.style.display = 'block';
-    chatbotFab.style.display = 'none';
-    showWelcomeMessage();
-    firstUserMessage = true;
-  }
-  function closeChatbot() {
-    chatbotBubble.style.display = 'none';
-    chatbotOverlay.style.display = 'none';
-    chatbotFab.style.display = 'flex';
-    hideEmojiPicker();
-  }
-
-  if (chatbotFab) chatbotFab.addEventListener('click', openChatbot);
-  if (chatbotClose) chatbotClose.addEventListener('click', closeChatbot);
-  if (chatbotOverlay) chatbotOverlay.addEventListener('click', closeChatbot);
-
-  // Formulaire
-  if (chatForm) chatForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const userMsg = chatInput.value.trim();
-    if (!userMsg) return;
-    addMessage(userMsg, 'user');
-    chatInput.value = '';
-    if (firstUserMessage) {
-      const loadingDiv = showLoading();
-      setTimeout(() => {
-        removeLoading(loadingDiv);
-        addMessage("Merci pour votre message ! Nous vous répondrons très bientôt.", 'bot');
-      }, 1000);
-      firstUserMessage = false;
-    }
-  });
-
-  // FAQ Pagination
-  const faqQuestions = [
-    {
-      question: 'Comment prendre rendez-vous ?',
-      answer: 'En ligne via <a href="https://progenda.be/">Progenda</a> ou par téléphone au 04 384 30 84.'
-    },
-    {
-      question: 'Les consultations sont-elles remboursées ?',
-      answer: 'Oui, le cabinet est conventionné (secteur 1), les consultations sont remboursées par la mutuelle.'
-    },
-    {
-      question: 'Proposez-vous la téléconsultation ?',
-      answer: 'Oui, la téléconsultation est disponible via Progenda et remboursée comme une consultation en présentiel.'
-    },
-    {
-      question: 'Quelles langues sont parlées au cabinet ?',
-      answer: 'Français, Anglais.'
-    }
-  ];
-  const QUESTIONS_PER_PAGE = 2;
-  let currentFaqPage = 1;
-
-  const faqList = document.getElementById('faq-list');
-  const faqPrev = document.getElementById('faq-prev');
-  const faqNext = document.getElementById('faq-next');
-  const faqPageIndicator = document.getElementById('faq-page-indicator');
-
-  function renderFaqPage(page) {
-    if (!faqList || !faqPrev || !faqNext || !faqPageIndicator) return;
-    faqList.innerHTML = '';
-    const start = (page - 1) * QUESTIONS_PER_PAGE;
-    const end = start + QUESTIONS_PER_PAGE;
-    const pageQuestions = faqQuestions.slice(start, end);
-    pageQuestions.forEach(q => {
-      const details = document.createElement('details');
-      const summary = document.createElement('summary');
-      summary.textContent = q.question;
-      details.appendChild(summary);
-      const p = document.createElement('p');
-      p.innerHTML = q.answer;
-      details.appendChild(p);
-      faqList.appendChild(details);
+/**
+ * Fonction pour générer le tableau des horaires
+ * Utile si vous voulez régénérer le tableau depuis les données
+ */
+function regenererTableauHoraires() {
+    const tbody = document.querySelector('.horaires-table tbody');
+    tbody.innerHTML = '';
+    
+    Object.entries(horaireConfig).forEach(([jour, horaires]) => {
+        const row = document.createElement('tr');
+        
+        // Ajouter la classe spéciale pour jeudi
+        if (jour === 'jeudi') {
+            row.classList.add('row-special');
+        } else if (jour === 'samedi' || jour === 'dimanche') {
+            row.classList.add('row-weekend');
+        }
+        
+        const jourCell = document.createElement('td');
+        jourCell.className = 'jour';
+        jourCell.textContent = jour.charAt(0).toUpperCase() + jour.slice(1);
+        
+        const matinCell = document.createElement('td');
+        matinCell.textContent = horaires.matin;
+        
+        const apremidiCell = document.createElement('td');
+        apremidiCell.textContent = horaires.apremidi;
+        
+        // Ajouter la classe 'ferme' si fermé
+        if (horaires.apremidi === 'Fermé') {
+            apremidiCell.classList.add('ferme');
+        }
+        if (horaires.matin === 'Fermé') {
+            matinCell.classList.add('ferme');
+        }
+        
+        row.appendChild(jourCell);
+        row.appendChild(matinCell);
+        row.appendChild(apremidiCell);
+        
+        tbody.appendChild(row);
     });
-    faqPrev.disabled = page === 1;
-    faqNext.disabled = end >= faqQuestions.length;
-    faqPageIndicator.textContent = `Page ${page}`;
-  }
+}
 
-  if (faqPrev && faqNext && faqList && faqPageIndicator) {
-    faqPrev.addEventListener('click', function () {
-      if (currentFaqPage > 1) {
-        currentFaqPage--;
-        renderFaqPage(currentFaqPage);
-      }
-    });
-    faqNext.addEventListener('click', function () {
-      if ((currentFaqPage * QUESTIONS_PER_PAGE) < faqQuestions.length) {
-        currentFaqPage++;
-        renderFaqPage(currentFaqPage);
-      }
-    });
-    renderFaqPage(currentFaqPage);
-  }
+/* ===================================
+   EXEMPLE D'UTILISATION (À DÉCOMMENTER)
+   =================================== */
 
-  // Emoji Picker
-  const emojiBtn = document.getElementById('emoji-btn');
-  const emojiPicker = document.getElementById('emoji-picker');
-  const emojis = [
-    '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','😘','🥰','😗','😙','😚','🙂','🤗','🤩','🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮','🤐','😯','😪','😫','🥱','😴','😌','😛','😜','😝','🤤','😒','😓','😔','😕','🙃','🤑','😲','☹️','🙁','😖','😞','😟','😤','😢','😭','😦','😧','😨','😩','🤯','😬','😰','😱','🥵','🥶','😳','🤪','😵','😡','😠','🤬','😷','🤒','🤕','🤢','🤮','🥴','😇','🥳','🥺','🤠','🤡','🤥','🤫','🤭','🧐','🤓','😈','👿','👹','👺','💀','👻','👽','🤖','💩','😺','😸','😹','😻','😼','😽','��','😿','😾'
-  ];
+// Exemple: Mise à jour des coordonnées de contact
+// updateContact('adresse', '123 rue de la Santé, 75000 Paris');
+// updateContact('telephone', '+33 1 23 45 67 89');
+// updateContact('email', 'contact@cabinet-ghemning.fr');
 
-  if (!emojiBtn) console.warn('emoji-btn introuvable');
-  if (!emojiPicker) console.warn('emoji-picker introuvable');
+// Exemple: Modification d'un horaire
+// updateHoraire('lundi', { matin: '09:00 - 12:00', apremidi: '14:00 - 17:00' });
+// regenererTableauHoraires();
 
-  function showEmojiPicker() {
-    if (!emojiPicker) return;
-    emojiPicker.innerHTML = '';
-    emojis.forEach(emoji => {
-      const span = document.createElement('span');
-      span.textContent = emoji;
-      span.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        console.log('Emoji cliqué:', emoji);
-        if (chatInput) chatInput.value += emoji; // test simple
-        hideEmojiPicker();
-        if (chatInput) chatInput.focus();
-      });
-      emojiPicker.appendChild(span);
-    });
-    emojiPicker.style.display = 'grid';
-    if (emojiBtn) emojiBtn.classList.add('active');
-  }
-  function hideEmojiPicker() {
-    if (!emojiPicker) return;
-    emojiPicker.style.display = 'none';
-    if (emojiBtn) emojiBtn.classList.remove('active');
-  }
-  if (emojiBtn) emojiBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log('Bouton emoji cliqué');
-    if (emojiPicker.style.display === 'grid') {
-      hideEmojiPicker();
-    } else {
-      showEmojiPicker();
+/* ===================================
+   VALIDATION ET UTILITAIRES
+   =================================== */
+
+/**
+ * Fonction pour valider et formater un numéro de téléphone
+ */
+function formaterTelephone(numero) {
+    return numero.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+}
+
+/**
+ * Fonction pour vérifier si un jour est ouvert
+ */
+function isJourOuvert(jour) {
+    const horaires = horaireConfig[jour.toLowerCase()];
+    return horaires && (horaires.matin !== 'Fermé' || horaires.apremidi !== 'Fermé');
+}
+
+/**
+ * Fonction pour obtenir le prochain jour d'ouverture
+ */
+function getProchainjOurOuverture() {
+    const jours = Object.keys(horaireConfig);
+    const aujourd = new Date().getDay();
+    const correspondance = [6, 0, 1, 2, 3, 4, 5]; // Conversion JavaScript day to array index
+    
+    for (let i = 1; i <= 7; i++) {
+        const index = (correspondance[aujourd] + i) % 7;
+        const jour = jours[index];
+        if (isJourOuvert(jour)) {
+            return jour.charAt(0).toUpperCase() + jour.slice(1);
+        }
     }
-  });
-  document.addEventListener('mousedown', (e) => {
-    if (emojiPicker && !emojiPicker.contains(e.target) && e.target !== emojiBtn) {
-      hideEmojiPicker();
-    }
-  });
+    
+    return null;
+}
 
-  // Image upload
-  const imageBtn = document.getElementById('image-btn');
-  const imageInput = document.getElementById('image-input');
+/* ===================================
+   LOGGING ET DEBUG
+   =================================== */
 
-  if (!imageBtn) console.warn('image-btn introuvable');
-  if (!imageInput) console.warn('image-input introuvable');
-
-  if (imageBtn) imageBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log('Bouton image cliqué');
-    imageInput && imageInput.click();
-  });
-
-  if (imageInput) imageInput.addEventListener('change', function() {
-    if (this.files && this.files[0]) {
-      const file = this.files[0];
-      console.log('Image sélectionnée:', file.name);
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        addImageMessage(e.target.result, 'user');
-      };
-      reader.readAsDataURL(file);
-      imageInput.value = '';
-    }
-  });
-
-  function addImageMessage(imgSrc, sender = 'user') {
-    const chatMessages = document.getElementById('chat-messages');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'chatbot-message ' + (sender === 'user' ? 'user' : 'bot');
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = 'Image envoyée';
-    img.className = 'chatbot-img-preview';
-    msgDiv.appendChild(img);
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-}); 
+// Afficher les configurations dans la console
+console.log('Configuration du cabinet:');
+console.log('- Horaires:', horaireConfig);
+console.log('- Contact:', contactConfig);
+console.log('- General:', generalConfig);
+console.log('\nProchain jour d\'ouverture:', getProchainjOurOuverture());
