@@ -67,6 +67,43 @@
         </div>
     </section>
 
+    <!-- SECTION ÉQUIPE -->
+    <section id="equipe" class="equipe">
+        <div class="container">
+            <h2 class="section-title">Notre Équipe Médicale</h2>
+            
+            <div class="equipe-grid">
+                <div class="equipe-card">
+                    <div class="equipe-photo">
+                        <img src="images/DrGhemning.jpeg" alt="Dr. Ghemning">
+                    </div>
+                    <h3>Dr. Ghemning</h3>
+                    <p class="equipe-role">Médecin Généraliste</p>
+                    <p class="equipe-description">Diplômé en médecine générale avec plus de 15 ans d'expérience dans les soins de santé primaires.</p>
+                </div>
+                <!--
+                <div class="equipe-card">
+                    <div class="equipe-photo">
+                        <img src="https://ui-avatars.com/api/?name=Sophie+Martin&size=500&background=00a8e8&color=fff&bold=true&font-size=0.4" alt="Infirmière">
+                    </div>
+                    <h3>Sophie Martin</h3>
+                    <p class="equipe-role">Infirmière</p>
+                    <p class="equipe-description">Infirmière diplômée spécialisée dans les soins préventifs et le suivi des patients.</p>
+                </div>
+                
+                <div class="equipe-card">
+                    <div class="equipe-photo">
+                        <img src="https://ui-avatars.com/api/?name=Marie+Dubois&size=500&background=0066cc&color=fff&bold=true&font-size=0.4" alt="Assistant">
+                    </div>
+                    <h3>Marie Dubois</h3>
+                    <p class="equipe-role">Assistante Médicale</p>
+                    <p class="equipe-description">Responsable de l'accueil et de la coordination des rendez-vous avec professionnalisme.</p>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION HORAIRES -->
     <section id="horaires" class="horaires">
         <div class="container">
@@ -107,7 +144,7 @@
                             <td>08:30 - 12:30</td>
                             <td>13:30 - 17:00</td>
                         </tr>
-                        <tr>
+                        <tr class="row-weekend">
                             <td class="jour">Samedi</td>
                             <td class="ferme">Fermé</td>
                             <td class="ferme">Fermé</td>
@@ -122,6 +159,42 @@
             </div>
 
             <p class="horaires-note">Sur rendez-vous. Les urgences sont acceptées en dehors de ces horaires.</p>
+        </div>
+    </section>
+
+    <!-- SECTION TÉMOIGNAGES -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Témoignages de nos Patients</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Médecin traitant à l’écoute. Certes, le temps d’attente peut être long lorsqu’on vient sans rendez-vous, prenez vos précautions, mais je préfère ça du travail à la chaîne bâclée."</p>
+                    <div class="testimonial-author">
+                        <strong>Maison H.</strong>
+                        <span>il y a une semaine</span>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Docteur Ghemming, Est un docteur compétant, professionnel. Il est a l'écoute de ses patients et prend vraiment le temps dans la consultation. Même pendant ses vacances il prend l Le temps de répondre à son téléphone privée et vous aider en cas d'urgence. Aujourd'hui le cabine comporte trois médecins avec une infirmière, un labo de prélèvement et bientôt une pédiatre. Je recommande a 100%"</p>
+                    <div class="testimonial-author">
+                        <strong>GAbin T.</strong>
+                        <span>il y a 11 mois</span>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"C'est rassurant de trouver un medecin de famille à l ecoute de ses patients malgré le volume chargé de travail. Acceuil et disponibilité au top. Je recommande et je reste."</p>
+                    <div class="testimonial-author">
+                        <strong>Rien R.</strong>
+                        <span>il y a 2 ans</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -199,40 +272,121 @@
         <div class="container">
             <h2 class="section-title">Nous Contacter</h2>
             
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <span class="info-icon">📍</span>
-                        <div>
-                            <h3>Adresse</h3>
-                            <p>Rue Auguste Joiret N°2 4031 Angleur</p>
+            <div class="contact-wrapper">
+                <!-- Informations de contact -->
+                <div class="contact-info-section">
+                    <h3>Informations</h3>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <span class="info-icon">📍</span>
+                            <div>
+                                <h4>Adresse</h4>
+                                <p>Rue Auguste Joiret N°2<br>4031 Angleur, Belgique</p>
+                            </div>
                         </div>
+                        
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <div>
+                                <h4>Téléphone</h4>
+                                <p>+32 496 49 20 44</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <span class="info-icon">✉️</span>
+                            <div>
+                                <h4>Email</h4>
+                                <p>contact@centre-ghemning.be</p>
+                            </div>
+                        </div>
+                        
                     </div>
                     
-                    <div class="info-item">
-                        <span class="info-icon">📞</span>
-                        <div>
-                            <h3>Téléphone</h3>
-                            <p>+32 496 49 20 44</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <span class="info-icon">✉️</span>
-                        <div>
-                            <h3>Email</h3>
-                            <p>contact@centre-ghemning.be</p>
-                        </div>
+                    <div class="contact-cta-box">
+                        <p>Prendre rendez-vous en ligne</p>
+                        <a href="https://DrGhemning.progenda.be" target="_blank" class="btn btn-primary btn-large">Réserver sur Progenda</a>
                     </div>
                 </div>
-
-                <div class="contact-cta">
-                    <p>Vous souhaitez prendre rendez-vous dès maintenant ?</p>
-                    <a href="https://DrGhemning.progenda.be" target="_blank" class="btn btn-primary btn-large">Accéder à Progenda</a>
+                
+                <!-- Formulaire de contact -->
+                <div class="contact-form-section">
+                    <h3>Envoyez-nous un message</h3>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom complet *</label>
+                            <input type="text" id="name" name="name" required placeholder="Votre nom et prénom">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="votre@email.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+32 XXX XX XX XX">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Sujet *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">-- Sélectionnez un sujet --</option>
+                                <option value="rendez-vous">Demande de rendez-vous</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="urgence">Urgence</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Votre message..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span class="btn-text">Envoyer le message</span>
+                            <span class="btn-loading" style="display: none;">Envoi en cours...</span>
+                        </button>
+                        
+                        <p class="form-success" style="display: none;">✅ Message envoyé avec succès ! Nous vous répondrons rapidement.</p>
+                        <p class="form-error" style="display: none;">❌ Erreur lors de l'envoi. Veuillez réessayer.</p>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Google Maps -->
+            <div class="map-container">
+                <h3>Nous Trouver</h3>
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.8876844771233!2d5.608857!3d50.631944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0fa6f96c8b7f1%3A0x2d51a5c5f8a5c5e5!2sRue%20Auguste%20Joiret%202%2C%204031%20Angleur%2C%20Belgium!5e0!3m2!1sen!2sus!4v1234567890" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="map-info">
+                    <p>📍 <strong>Accès</strong> : Parking disponible devant le cabinet</p>
+                    <p>🚌 <strong>Transports</strong> : Bus ligne 3, 26, B2 - Arrêt "ANGLEUR Mairie d'Angleur"</p>
+                    <p>♿ <strong>Accessibilité</strong> : Cabinet non accessible aux personnes à mobilité réduite</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- BOUTON WHATSAPP FLOTTANT -->
+    <a href="https://wa.me/32496492044" target="_blank" class="whatsapp-float" title="Contactez-nous sur WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-4.713 1.262 1.262-4.669-0.292-0.508c-1.207-2.100-1.847-4.507-1.847-6.924 0-7.435 6.046-13.481 13.481-13.481s13.481 6.046 13.481 13.481c0 7.436-6.046 13.481-13.481 13.481zM21.729 18.68c-0.334-0.167-1.977-0.975-2.283-1.086-0.307-0.112-0.531-0.167-0.753 0.167s-0.864 1.086-1.060 1.308c-0.195 0.223-0.39 0.251-0.725 0.084-1.977-0.988-3.274-1.764-4.576-4.001-0.347-0.597 0.347-0.555 0.994-1.848 0.111-0.223 0.056-0.418-0.028-0.585-0.084-0.167-0.753-1.813-1.030-2.481-0.271-0.650-0.547-0.562-0.753-0.573-0.195-0.010-0.418-0.012-0.641-0.012s-0.585 0.084-0.892 0.418c-0.307 0.334-1.171 1.145-1.171 2.791s1.199 3.237 1.365 3.460c0.167 0.223 2.351 3.588 5.696 5.031 2.114 0.911 2.942 1.003 3.999 0.847 0.641-0.095 1.977-0.808 2.255-1.588s0.278-1.449 0.195-1.588c-0.084-0.139-0.307-0.223-0.641-0.39z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Besoin d'aide ?</span>
+    </a>
 
     <!-- FOOTER -->
     <footer class="footer">

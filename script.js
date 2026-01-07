@@ -1,4 +1,91 @@
 /* ===================================
+   GESTION DU FORMULAIRE DE CONTACT
+   =================================== */
+
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Récupérer les éléments
+        const btnText = contactForm.querySelector('.btn-text');
+        const btnLoading = contactForm.querySelector('.btn-loading');
+        const successMsg = contactForm.querySelector('.form-success');
+        const errorMsg = contactForm.querySelector('.form-error');
+        const submitBtn = contactForm.querySelector('.btn-submit');
+        
+        // Afficher le loader
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline';
+        submitBtn.disabled = true;
+        
+        // Récupérer les données du formulaire
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+        
+        // Simuler l'envoi (remplacer par votre logique d'envoi réelle)
+        setTimeout(() => {
+            // Succès (à remplacer par votre logique backend)
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Afficher le message de succès
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            
+            // Réinitialiser le formulaire
+            contactForm.reset();
+            
+            // Cacher le message après 5 secondes
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+            
+            // Log des données (pour développement)
+            console.log('Formulaire soumis:', formData);
+            
+            // TODO: Remplacer par votre logique d'envoi
+            // Exemple avec fetch:
+            /*
+            fetch('votre-endpoint.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMsg.style.display = 'block';
+                    errorMsg.style.display = 'none';
+                    contactForm.reset();
+                } else {
+                    errorMsg.style.display = 'block';
+                    successMsg.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+            })
+            .finally(() => {
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            });
+            */
+            
+        }, 1500);
+    });
+}
+
+/* ===================================
    GESTION DE LA FAQ
    =================================== */
 

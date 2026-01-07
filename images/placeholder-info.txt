@@ -1,0 +1,56 @@
+IMAGES À AJOUTER DANS CE DOSSIER
+==================================
+
+Pour que le site fonctionne parfaitement, ajoutez les images suivantes :
+
+1. cabinet.jpg
+   - Photo principale du cabinet médical (pour le hero background)
+   - Dimensions recommandées : 1920x1080 ou plus
+   - Format : JPG, PNG ou WebP
+
+2. doctor-placeholder.jpg
+   - Photo du Dr. Ghemning
+   - Dimensions recommandées : 500x500 (carré)
+   - Format : JPG ou PNG
+
+3. nurse-placeholder.jpg
+   - Photo de l'infirmière
+   - Dimensions recommandées : 500x500 (carré)
+   - Format : JPG ou PNG
+
+4. assistant-placeholder.jpg
+   - Photo de l'assistante médicale
+   - Dimensions recommandées : 500x500 (carré)
+   - Format : JPG ou PNG
+
+---
+
+IMAGES TEMPORAIRES / ALTERNATIVES
+==================================
+
+En attendant d'avoir les vraies photos, vous pouvez :
+
+Option 1 : Utiliser des services d'images gratuites
+- Unsplash.com (recherche : "doctor", "medical", "clinic")
+- Pexels.com
+- Pixabay.com
+
+Option 2 : Utiliser des avatars professionnels
+- UI Avatars : https://ui-avatars.com/
+- Exemple d'URL à utiliser : https://ui-avatars.com/api/?name=Dr+Ghemning&size=500&background=0066cc&color=fff
+
+Option 3 : Images placeholder en ligne (temporaire)
+- Remplacer les chemins dans index.html par :
+  https://via.placeholder.com/500x500/0066cc/ffffff?text=Dr.+Ghemning
+  https://via.placeholder.com/500x500/00a8e8/ffffff?text=Infirmiere
+  https://via.placeholder.com/500x500/0066cc/ffffff?text=Assistante
+
+---
+
+NOTES IMPORTANTES
+=================
+
+- Les images doivent être optimisées (pas trop lourdes)
+- Format WebP recommandé pour de meilleures performances
+- Compresser les images avec TinyPNG.com ou Squoosh.app
+- Photos professionnelles recommandées pour un cabinet médical
