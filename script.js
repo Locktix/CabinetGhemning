@@ -42,11 +42,11 @@ function updateStatusBadge() {
     if (isOpen) {
         statusBadge.classList.add('open');
         statusBadge.classList.remove('closed');
-        statusText.textContent = '🟢 Ouvert maintenant';
+        statusText.textContent = 'Ouvert maintenant';
     } else {
         statusBadge.classList.add('closed');
         statusBadge.classList.remove('open');
-        statusText.textContent = '🔴 Fermé actuellement';
+        statusText.textContent = 'Fermé actuellement';
     }
 }
 
