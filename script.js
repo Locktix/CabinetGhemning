@@ -119,7 +119,7 @@ function closeAlert() {
 // Afficher l'alerte si elle n'a pas été fermée dans cette session
 // ET si vous voulez l'activer (décommentez la ligne suivante)
  if (!sessionStorage.getItem('alertClosed')) {
-     document.getElementById('alertBanner').style.display = 'block';
+    // document.getElementById('alertBanner').style.display = 'block';
  }
 
 /* ===================================
