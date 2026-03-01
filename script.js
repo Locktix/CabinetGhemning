@@ -20,10 +20,10 @@ function updateStatusBadge() {
         1: { morning: [510, 750], afternoon: [810, 1020] }, // Lundi: 08:30-12:30, 13:30-17:00
         2: { morning: [510, 750], afternoon: [810, 1020] }, // Mardi
         3: { morning: [510, 750], afternoon: [810, 1020] }, // Mercredi
-        4: { morning: [510, 750], afternoon: null },         // Jeudi: 08:30-12:30 (fermé après-midi)
+        4: { morning: [510, 750], afternoon: null },        // Jeudi: 08:30-12:30 (fermé après-midi)
         5: { morning: [510, 750], afternoon: [810, 1020] }, // Vendredi
-        6: { morning: [540, 780], afternoon: null },         // Samedi: 09:00-13:00
-        0: { morning: null, afternoon: null }                // Dimanche: fermé
+        6: { morning: null, afternoon: null },              // Samedi: fermé
+        0: { morning: null, afternoon: null }               // Dimanche: fermé
     };
     
     const todaySchedule = schedule[day];
